@@ -15,6 +15,7 @@ public class Main extends Activity {
 	private ToggleButton tglRecord;
 	private Button btnStop;
 	private Button btnCancel;
+	private AudioRecorder recorder;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +28,7 @@ public class Main extends Activity {
 		btnCancel = (Button) findViewById(R.id.btn_cancel);
 		btnCancel.setOnClickListener(new ButtonClickListener());
 		
-		
+		recorder = new AudioRecorder();
 	}
 	
 	private class ButtonClickListener implements OnClickListener {
@@ -36,7 +37,7 @@ public class Main extends Activity {
 		public void onClick(View v) {
 			
 			if (v.getId()==R.id.btn_stop) {
-				
+				recorder.stopRecording();
 			} else if (v.getId()==R.id.btn_cancel) {
 				
 			} 
@@ -51,7 +52,7 @@ public class Main extends Activity {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			if (isChecked) {
-	            Log.d("button","is checked");
+	            recorder.startRecording();
 	        } else {
 	        	Log.d("button","is not checked");
 	        }
