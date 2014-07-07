@@ -3,13 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ToggleButton
         android:id="@+id/btn_record"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="128dp"
-        android:text="@string/btn_record" />
+        android:textOff="@string/tgl_record"
+        android:textOn="@string/tgl_pause" />
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_record"
+        android:layout_marginRight="17dp"
+        android:layout_toLeftOf="@+id/btn_record"
+        android:text="@string/btn_stop" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btn_stop"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/btn_record"
+        android:text="@string/btn_cancel" />
 
 </RelativeLayout>

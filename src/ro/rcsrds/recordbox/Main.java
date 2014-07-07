@@ -6,23 +6,59 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ToggleButton;
 
 public class Main extends Activity {
+	
+	private ToggleButton tglRecord;
+	private Button btnStop;
+	private Button btnCancel;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		Button btnRecord = (Button) findViewById(R.id.btn_record);
-		btnRecord.setOnClickListener(new OnClickListener() {
+		tglRecord = (ToggleButton) findViewById(R.id.btn_record);
+		tglRecord.setOnCheckedChangeListener(new ButtonToggleListener());
+		btnStop = (Button) findViewById(R.id.btn_stop);
+		btnStop.setOnClickListener(new ButtonClickListener());
+		btnCancel = (Button) findViewById(R.id.btn_cancel);
+		btnCancel.setOnClickListener(new ButtonClickListener());
+		
+		
+	}
+	
+	private class ButtonClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
 			
-			@Override
-			public void onClick(View v) {
+			if (v.getId()==R.id.btn_stop) {
 				
-				Log.d("recordbox","test");			
+			} else if (v.getId()==R.id.btn_cancel) {
 				
-			}
-		});
+			} 
+			
+		}		
+		
+	}
+	
+	private class ButtonToggleListener implements OnCheckedChangeListener {
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			if (isChecked) {
+	            Log.d("button","is checked");
+	        } else {
+	        	Log.d("button","is not checked");
+	        }
+
+			
+		}
+		
 	}
 	
 }
