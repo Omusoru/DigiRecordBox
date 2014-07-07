@@ -1,6 +1,9 @@
 <resources>
 
     <string name="app_name">Recordbox</string>
-    <string name="btn_record">Record</string>
+    <string name="tgl_record">Record</string>
+    <string name="tgl_pause">Pause</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_cancel">Cancel</string>
 
 </resources>
