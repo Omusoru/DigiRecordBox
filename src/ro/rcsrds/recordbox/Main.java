@@ -13,14 +13,13 @@ public class Main extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		Button b = (Button) findViewById(R.id.button1);
-		b.setOnClickListener(new OnClickListener() {
+		Button btnRecord = (Button) findViewById(R.id.btn_record);
+		btnRecord.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				
-				Log.d("recordbox","test");
-			
+				Log.d("recordbox","test");			
 				
 			}
 		});
