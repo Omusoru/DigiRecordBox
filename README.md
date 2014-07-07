@@ -1,4 +1,3 @@
 DigiRecordBox
 =============
-Test readme
-RAZVAN
+Test 1
