@@ -33,8 +33,6 @@ public class MainActivity extends Activity {
 		auth = new Authentication(preferences);
 		
 		//Check if user is logged in
-
-
 		if(!auth.isLoggedIn()) {
 			//Close main activity so user can't bypass login screen
 			finish();
@@ -107,7 +105,7 @@ public class MainActivity extends Activity {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			// Initial state is not checked
+			// Initial state is 'not checked'
 			// Recording starts when button is checked
 			if (isChecked) { 
 	            recorder.startRecording();
