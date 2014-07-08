@@ -53,14 +53,14 @@ public class MainActivity extends Activity {
 	}
 	
 	//TODO TEMPORARY CLEAR LOGIN
-	@Override
+	/*@Override
 	protected void onStop() {
 		super.onStop();
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 	    SharedPreferences.Editor editor = settings.edit();
 	    editor.putBoolean("isLoggedIn", false);
 	    editor.commit();	
-	}
+	}*/
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
