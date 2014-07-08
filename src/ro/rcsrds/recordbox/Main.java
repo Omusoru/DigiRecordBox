@@ -1,10 +1,12 @@
 package ro.rcsrds.recordbox;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -40,6 +42,15 @@ public class Main extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.options_menu, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId()==R.id.option_menu_login) {
+			Intent login = new Intent(Main.this,Login.class);
+			startActivity(login);
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	private class ButtonClickListener implements OnClickListener {
