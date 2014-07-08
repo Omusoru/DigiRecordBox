@@ -57,9 +57,10 @@ public class Login extends Activity {
 	private void login(String host, String username, String password) {
 		
 		boolean loggedIn = true;
+		StorageApi api = null;
 		
 		try {
-			StorageApi api = DefaultClientFactory.create(host,username, password);
+			api = DefaultClientFactory.create(host,username, password);
 			Log.d(Login.TAG,api.getUserInfo().getFormattedName());			
 		} catch (StorageApiException sae) {			
 			Log.e(Login.TAG,sae.getMessage());
@@ -71,6 +72,8 @@ public class Login extends Activity {
 			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		    SharedPreferences.Editor editor = settings.edit();
 		    editor.putBoolean("isLoggedIn", true);
+		    String authToken = api.getAuthToken();
+		    editor.putString("authToken", authToken);
 		    editor.commit();				
 			//Start main
 			Intent intent = new Intent(Login.this,Main.class);

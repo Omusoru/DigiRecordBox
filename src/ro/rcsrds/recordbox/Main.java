@@ -71,9 +71,18 @@ public class Main extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId()==R.id.option_menu_login) {
+		if(item.getItemId()==R.id.option_menu_logout) {
+			// Clear login info
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		    SharedPreferences.Editor editor = settings.edit();
+		    editor.putBoolean("isLoggedIn", false);
+		    editor.putString("authToken", "");
+		    editor.commit();	
+		    //Close main activity so user can't bypass login screen
+			finish();
+			//Start login activity
 			Intent login = new Intent(Main.this,Login.class);
-			startActivity(login);
+			startActivity(login);	
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -100,10 +109,14 @@ public class Main extends Activity {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			if (isChecked) {
+			// Initial state is not checked
+			// Recording starts when button is checked
+			if (isChecked) { 
 	            recorder.startRecording();
 	            btnStop.setVisibility(View.VISIBLE);
 	            btnCancel.setVisibility(View.VISIBLE);
+	        // If it's unchecked, it means it's recording
+	        // Checking it again, will pause the recording
 	        } else {
 	        	tglRecord.setChecked(true);
 	        	//TODO Pause recording
