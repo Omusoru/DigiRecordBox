@@ -43,6 +43,7 @@ public class AudioRecorder {
         mRecorder.start();
         isRecording=true;
 		}
+		
     }
 	
     public void stopRecording() {
