@@ -2,8 +2,6 @@ package ro.rcsrds.recordbox;
 
 
 
-import java.io.File;
-import java.io.IOException;
 import java.io.*;
 
 //import org.apache.commons.logging.Log;
@@ -33,6 +31,17 @@ public class DigiFTPClient
         this.user = user;
         this.password = password;
         ftpClient = new FTPClient();
+    }
+    
+    public boolean logIn() {
+    	boolean loggedIn = false;
+    	try {
+    		loggedIn =  ftpClient.login(this.user, this.password);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	return loggedIn;
+    	
     }
 
     public boolean testConnection() throws IOException
