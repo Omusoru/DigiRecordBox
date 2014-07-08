@@ -54,10 +54,7 @@ public class LoginActivity extends Activity {
 	
 	private void login(String username, String password) {
 		
-		boolean loggedIn;
-		loggedIn = auth.logIn(username, password);
-		
-		if(loggedIn) {			
+		if(auth.logIn(username, password)) {			
 			//Start main
 			Intent intent = new Intent(LoginActivity.this,MainActivity.class);
 			startActivity(intent);	
