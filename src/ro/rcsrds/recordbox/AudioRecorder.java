@@ -1,5 +1,6 @@
 package ro.rcsrds.recordbox;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,10 +20,16 @@ public class AudioRecorder {
     private MediaRecorder mRecorder = null;
     private MediaPlayer   mPlayer = null;
     
+    private boolean canRecord=true;
+    private boolean canPlay=false;
+    private boolean canPause=false;
+    private boolean canRecPause=false;
     private boolean isRecording=false;
     private boolean isPlaying=false;
-    private boolean isPaused=false;
+    private boolean isPlayPaused=false;
+    private boolean isRecPaused=false;
     private int playingPausedAt;
+    private int recstoped;
     
     
     //Setam directorul unde se salveaza fisierul
@@ -31,7 +38,7 @@ public class AudioRecorder {
     } 
     
 	public void startRecording() {
-		if(!isRecording){
+		if((canRecord)&&(!isRecording)){
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -51,21 +58,54 @@ public class AudioRecorder {
         }
 
         mRecorder.start();
+        canRecord=false;
+        canPlay=false;
+        canRecPause=true;
         isRecording=true;
+		}
+		if(isRecording&&canRecPause){
+			///In Developement
 		}
 		
     }
 	
+	/*public void pauseRecording(){
+		if(isRecording)
+	}
+	
+	public void resumeRecording(){
+		
+	}*/
+	
+	private void mergeAudio(String file1,String file2,String finalFile)
+	{
+		
+	}
+	
     public void stopRecording() {
-    	if(isRecording){
+    	if((!canRecord)&&(isRecording)){
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
+        canRecord=true;
+        canPlay=true;
         isRecording=false;
     	}
     }
+    
+    public void cancelRecording(){
+    	if((!canRecord)&&(isRecording))
+    	{
+    		stopRecording();
+    		File temp = new File(lastFile);
+    		temp.delete();
+    		lastFile=null;
+    		canPlay=false;
+    	}
+    }
+    
     public void startPlaying() {
-    	if((!isPlaying)&&(!isRecording)&&(lastFile!=null)){
+    	if((canPlay)&&(!isPlaying)){
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(lastFile);
@@ -74,31 +114,58 @@ public class AudioRecorder {
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
         }
+        canPause=true;
+        canPlay=false;
+        canRecord=false;
         isPlaying=true;
+        
+    	}
+    	else if((canPause)&&(isPlaying)){
+    		mPlayer.pause();
+    		playingPausedAt = mPlayer.getCurrentPosition();
+    		canPause=false;
+    		isPlaying=false;
+    		isPlayPaused=true;
+    	}
+    	else if(isPlayPaused){
+    		mPlayer.seekTo(playingPausedAt);
+    		mPlayer.start();
+    		canPause=true;
+    		isPlayPaused=false;
+    		isPlaying=true;
+    	}    
     }
-    }
+    
     public void stopPlaying() {
-    	if(isPlaying){
+    	if((isPlaying)||(isPlayPaused)){
         mPlayer.release();
         mPlayer = null;
+        canPlay=true;
+        canPause=false;
+        canRecord=true;
         isPlaying=false;
+        isPlayPaused=false;
     	}
     }
     
-    public void pausePlaying(){
-    	if((isPlaying)&&(!isPaused)){
+    /*public void pausePlaying(){
+    	if((canPause)&&(isPlaying)){
     		mPlayer.pause();
     		playingPausedAt = mPlayer.getCurrentPosition();
-    		isPaused=true;
+    		canPause=false;
+    		isPlaying=false;
+    		isPlayPaused=true;
     	}
     }
     
     public void resumePlaying(){
-    	if((isPlaying)&&(isPaused)){
+    	if(isPlayPaused){
     		mPlayer.seekTo(playingPausedAt);
     		mPlayer.start();
-    		isPaused=false;
+    		canPause=true;
+    		isPlayPaused=false;
+    		isPlaying=true;
     	}
-    }
+    }//*/
     
 }
