@@ -14,7 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
-public class Main extends Activity {
+public class MainActivity extends Activity {
 	
 	private ToggleButton tglRecord;
 	private Button btnStop;
@@ -36,7 +36,7 @@ public class Main extends Activity {
 			//Close main activity so user can't bypass login screen
 			finish();
 			//Start login activity
-			Intent login = new Intent(Main.this,Login.class);
+			Intent login = new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(login);			
 		}		
 		
@@ -81,7 +81,7 @@ public class Main extends Activity {
 		    //Close main activity so user can't bypass login screen
 			finish();
 			//Start login activity
-			Intent login = new Intent(Main.this,Login.class);
+			Intent login = new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(login);	
 		}
 		return super.onOptionsItemSelected(item);

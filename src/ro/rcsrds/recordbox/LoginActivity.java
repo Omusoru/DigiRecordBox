@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login extends Activity {
+public class LoginActivity extends Activity {
 
 	private EditText etEmail;
 	private EditText etPassword;
@@ -61,9 +61,9 @@ public class Login extends Activity {
 		
 		try {
 			api = DefaultClientFactory.create(host,username, password);
-			Log.d(Login.TAG,api.getUserInfo().getFormattedName());			
+			Log.d(LoginActivity.TAG,api.getUserInfo().getFormattedName());			
 		} catch (StorageApiException sae) {			
-			Log.e(Login.TAG,sae.getMessage());
+			Log.e(LoginActivity.TAG,sae.getMessage());
 			loggedIn = false;
 		}	
 		
@@ -76,10 +76,10 @@ public class Login extends Activity {
 		    editor.putString("authToken", authToken);
 		    editor.commit();				
 			//Start main
-			Intent intent = new Intent(Login.this,Main.class);
+			Intent intent = new Intent(LoginActivity.this,MainActivity.class);
 			startActivity(intent);	
 		} else {
-			Toast message = Toast.makeText(Login.this, R.string.message_authentification_failed, Toast.LENGTH_SHORT);
+			Toast message = Toast.makeText(LoginActivity.this, R.string.message_authentification_failed, Toast.LENGTH_SHORT);
 			message.show();
 		}
 		
