@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 	private Button btnStop;
 	private Button btnCancel;
 	private AudioRecorder recorder;
-	public static final String PREFS_NAME = "Authentification";
+	public static final String PREFS_NAME = "Authentication";
 
 
 	@Override

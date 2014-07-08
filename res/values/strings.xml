@@ -14,6 +14,6 @@
     <string name="tv_email">E-mail:</string>
     <string name="tv_password">Password:</string>
     
-    <string name="message_authentification_failed">Authentification failed</string>
+    <string name="message_authentication_failed">Authentication failed</string>
 
 </resources>

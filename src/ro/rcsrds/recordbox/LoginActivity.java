@@ -20,7 +20,7 @@ public class LoginActivity extends Activity {
 	private EditText etPassword;
 	private Button btnLogin;
 	private static final String TAG = "Login";
-	public static final String PREFS_NAME = "Authentification";
+	public static final String PREFS_NAME = "Authentication";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class LoginActivity extends Activity {
 			Intent intent = new Intent(LoginActivity.this,MainActivity.class);
 			startActivity(intent);	
 		} else {
-			Toast message = Toast.makeText(LoginActivity.this, R.string.message_authentification_failed, Toast.LENGTH_SHORT);
+			Toast message = Toast.makeText(LoginActivity.this, R.string.message_authentication_failed, Toast.LENGTH_SHORT);
 			message.show();
 		}
 		
