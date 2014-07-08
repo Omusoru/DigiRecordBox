@@ -1,5 +1,7 @@
 package ro.rcsrds.recordbox;
 
+import java.io.IOException;
+
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -36,7 +38,7 @@ public class Authentication {
 		ftp=new DigiFTPClient(this.host,this.port,username,password);
 		try {
 			ftp.connect();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			Log.d(Authentication.TAG,e.getMessage());
 		}
 		
@@ -55,7 +57,7 @@ public class Authentication {
 		} else {
 			try {
 				ftp.disconnect();
-			} catch (Exception e) {
+			} catch (IOException e) {
 				Log.d(Authentication.TAG, e.getMessage());
 			}
 			
@@ -79,7 +81,7 @@ public class Authentication {
 	    //Disconnect FTP
 	    try {
 	    	ftp.disconnect();
-	    } catch (Exception e) {
+	    } catch (IOException e) {
 	    	Log.d(Authentication.TAG,e.getMessage());
 	    }
 	    

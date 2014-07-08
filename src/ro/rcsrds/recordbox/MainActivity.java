@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,12 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//!!!!!!!!!!!!!Temp fix for networking on main thread!!!!!!!!!!!!!!!!!!!
+		//TODO Use separate thread!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
+		
 		setContentView(R.layout.main);
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
@@ -53,7 +60,7 @@ public class MainActivity extends Activity {
 		recorder = new AudioRecorder();
 	}
 	
-	//TODO TEMPORARY CLEAR LOGIN
+	//Clear login on app close
 	/*@Override
 	protected void onStop() {
 		super.onStop();
