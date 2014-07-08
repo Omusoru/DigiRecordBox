@@ -65,7 +65,7 @@ public class AudioRecorder {
     	}
     }
     public void startPlaying() {
-    	if(!isPlaying){
+    	if((!isPlaying)&&(!isRecording)&&(lastFile!=null)){
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(lastFile);
