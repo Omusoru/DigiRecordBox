@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 	private Button btnCancel;
 	private AudioRecorder recorder;
 	public static final String PREFS_NAME = "Authentication";
+	private Authentication auth;
 
 
 	@Override
@@ -28,11 +29,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
+		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
+		auth = new Authentication(preferences);
+		
 		//Check if user is logged in
-		boolean isLoggedIn = false;
-		SharedPreferences preferences = getSharedPreferences(PREFS_NAME,0);
-		isLoggedIn = preferences.getBoolean("isLoggedIn", false);
-		if(!isLoggedIn) {
+
+
+		if(!auth.isLoggedIn()) {
 			//Close main activity so user can't bypass login screen
 			finish();
 			//Start login activity
@@ -71,13 +74,8 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId()==R.id.option_menu_logout) {
-			// Clear login info
-			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-		    SharedPreferences.Editor editor = settings.edit();
-		    editor.putBoolean("isLoggedIn", false);
-		    editor.putString("authToken", "");
-		    editor.commit();	
+		if(item.getItemId()==R.id.option_menu_logout) {			
+			auth.logOut();	
 		    //Close main activity so user can't bypass login screen
 			finish();
 			//Start login activity
