@@ -1,11 +1,16 @@
 <resources>
 
     <string name="app_name">Digi Recordbox</string>
-    <string name="tgl_record">Record</string>
-    <string name="tgl_pause">Pause</string>
-    <string name="btn_stop">Stop</string>
-    <string name="btn_cancel">Cancel</string>
-    <string name="tgl_play">Play</string>
+    
+    <string name="tgl_recorder_start">Record</string>
+    <string name="tgl_recorder_pause">Pause</string>
+    <string name="btn_recorder_stop">Stop</string>
+    <string name="btn_recorder_cancel">Cancel</string>
+    
+    <string name="tgl_player_play">Play</string>
+    <string name="tgl_player_pause">Pause</string>
+    <string name="btn_player_stop">Stop</string>
+    
     
     <string name="option_menu_logout">Log out</string>
     <string name="option_menu_about">About</string>

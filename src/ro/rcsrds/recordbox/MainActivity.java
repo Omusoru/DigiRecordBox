@@ -41,12 +41,12 @@ public class MainActivity extends Activity {
 			startActivity(login);			
 		}		
 		
-		tglRecord = (ToggleButton) findViewById(R.id.btn_record);
+		tglRecord = (ToggleButton) findViewById(R.id.btn_recorder_start);
 		tglRecord.setOnCheckedChangeListener(new ButtonToggleListener());
-		btnStop = (Button) findViewById(R.id.btn_stop);
+		btnStop = (Button) findViewById(R.id.btn_recorder_stop);
 		btnStop.setOnClickListener(new ButtonClickListener());
 		btnStop.setVisibility(View.INVISIBLE);
-		btnCancel = (Button) findViewById(R.id.btn_cancel);
+		btnCancel = (Button) findViewById(R.id.btn_recorder_cancel);
 		btnCancel.setOnClickListener(new ButtonClickListener());
 		btnCancel.setVisibility(View.INVISIBLE);
 		
@@ -79,6 +79,9 @@ public class MainActivity extends Activity {
 			//Start login activity
 			Intent login = new Intent(MainActivity.this,LoginActivity.class);
 			startActivity(login);	
+		} else if(item.getItemId()==R.id.option_menu_mediaplayer) {
+			Intent mediaPlayer = new Intent(MainActivity.this,MediaPlayerActivity.class);
+			startActivity(mediaPlayer);
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -88,12 +91,14 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			
-			if (v.getId()==R.id.btn_stop) {
+			if (v.getId()==R.id.btn_recorder_stop) {
 				recorder.stopRecording();
 				btnStop.setVisibility(View.INVISIBLE);
+	            btnCancel.setVisibility(View.INVISIBLE);	            
+			} else if (v.getId()==R.id.btn_recorder_cancel) {
+				recorder.cancelRecording();
+				btnStop.setVisibility(View.INVISIBLE);
 	            btnCancel.setVisibility(View.INVISIBLE);
-			} else if (v.getId()==R.id.btn_cancel) {
-				//TODO Cancel recording
 			} 
 			
 		}		

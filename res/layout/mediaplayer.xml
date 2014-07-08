@@ -4,23 +4,23 @@
     android:layout_height="match_parent" >
 
     <ToggleButton
-        android:id="@+id/tgl_play"
+        android:id="@+id/tgl_player_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="62dp"
         android:layout_marginTop="196dp"
-        android:textOff="@string/tgl_play"
-        android:textOn="@string/tgl_pause" />
+        android:textOff="@string/tgl_player_play"
+        android:textOn="@string/tgl_player_pause" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_player_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tgl_play"
+        android:layout_alignBottom="@+id/tgl_player_play"
         android:layout_marginLeft="56dp"
-        android:layout_toRightOf="@+id/tgl_play"
-        android:text="@string/btn_stop" />
+        android:layout_toRightOf="@+id/tgl_player_play"
+        android:text="@string/btn_player_stop" />
 
 </RelativeLayout>
