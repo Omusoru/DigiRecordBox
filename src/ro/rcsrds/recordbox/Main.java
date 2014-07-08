@@ -2,6 +2,7 @@ package ro.rcsrds.recordbox;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,10 +21,25 @@ public class Main extends Activity {
 	private Button btnStop;
 	private Button btnCancel;
 	private AudioRecorder recorder;
+	public static final String PREFS_NAME = "Authentification";
 
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		//Check if user is logged in
+		boolean isLoggedIn = false;
+		SharedPreferences preferences = getSharedPreferences(PREFS_NAME,0);
+		isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+		if(!isLoggedIn) {
+			//Close main activity so user can't bypass login screen
+			finish();
+			//Start login activity
+			Intent login = new Intent(Main.this,Login.class);
+			startActivity(login);			
+		}		
 		
 		tglRecord = (ToggleButton) findViewById(R.id.btn_record);
 		tglRecord.setOnCheckedChangeListener(new ButtonToggleListener());
@@ -35,6 +51,16 @@ public class Main extends Activity {
 		btnCancel.setVisibility(View.INVISIBLE);
 		
 		recorder = new AudioRecorder();
+	}
+	
+	//TODO TEMPORARY CLEAR LOGIN
+	@Override
+	protected void onStop() {
+		super.onStop();
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putBoolean("isLoggedIn", false);
+	    editor.commit();	
 	}
 	
 	@Override
