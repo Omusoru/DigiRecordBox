@@ -3,7 +3,9 @@ package ro.rcsrds.recordbox;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.util.Log;
@@ -12,9 +14,16 @@ import android.util.Log;
 @SuppressLint("SimpleDateFormat")
 public class AudioRecorder {
 	private static final String LOG_TAG = "AudioRecordTest";
-    private static String mFileName = null;    
+    private static String mFileName = null;
+    private String lastFile=null;
     private MediaRecorder mRecorder = null;
+    private MediaPlayer   mPlayer = null;
+    
     private boolean isRecording=false;
+    private boolean isPlaying=false;
+    private boolean isPaused=false;
+    private int playingPausedAt;
+    
     
     //Setam directorul unde se salveaza fisierul
     public AudioRecorder() {
@@ -30,8 +39,9 @@ public class AudioRecorder {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         String currentDateandTime = df.format(c.getTime());
+        lastFile=mFileName+"/"+currentDateandTime+".3gp";
         
-        mRecorder.setOutputFile(mFileName+"/"+currentDateandTime+".3gp");
+        mRecorder.setOutputFile(lastFile);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
@@ -54,4 +64,41 @@ public class AudioRecorder {
         isRecording=false;
     	}
     }
+    public void startPlaying() {
+    	if(!isPlaying){
+        mPlayer = new MediaPlayer();
+        try {
+            mPlayer.setDataSource(lastFile);
+            mPlayer.prepare();
+            mPlayer.start();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+        isPlaying=true;
+    }
+    }
+    public void stopPlaying() {
+    	if(isPlaying){
+        mPlayer.release();
+        mPlayer = null;
+        isPlaying=false;
+    	}
+    }
+    
+    public void pausePlaying(){
+    	if((isPlaying)&&(!isPaused)){
+    		mPlayer.pause();
+    		playingPausedAt = mPlayer.getCurrentPosition();
+    		isPaused=true;
+    	}
+    }
+    
+    public void resumePlaying(){
+    	if((isPlaying)&&(isPaused)){
+    		mPlayer.seekTo(playingPausedAt);
+    		mPlayer.start();
+    		isPaused=false;
+    	}
+    }
+    
 }
