@@ -5,5 +5,9 @@
     <string name="tgl_pause">Pause</string>
     <string name="btn_stop">Stop</string>
     <string name="btn_cancel">Cancel</string>
+    
+    <string name="option_menu_login">Log in</string>
+    <string name="option_menu_about">About</string>
+    <string name="option_menu_exit">Exit</string>
 
 </resources>
