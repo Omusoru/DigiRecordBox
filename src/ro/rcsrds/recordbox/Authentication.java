@@ -13,7 +13,7 @@ public class Authentication {
 	private int port = 21;
 	//private String authToken;
 	private boolean loggedIn;
-	private static final String TAG = "Login";
+	private static final String TAG = "Authentication";
 	private SharedPreferences preferences;
 	private DigiFTPClient ftp;
 	
