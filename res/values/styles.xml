@@ -10,6 +10,17 @@
 
     </style>
     
+    <style name="DigiTheme.Login.Button" parent="@android:Widget.Button">
+        
+        <item name="android:background">@drawable/button</item>
+        <item name="android:textColor">@color/gray</item>
+        
+    </style>
+    
+    <style name="DigiTheme.Login.TextView" parent="@android:TextAppearance">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    
     
 
 </resources>
