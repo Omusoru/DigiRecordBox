@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
 			Intent mediaPlayer = new Intent(MainActivity.this,MediaPlayerActivity.class);
 			startActivity(mediaPlayer);
 		} else if(item.getItemId()==R.id.option_menu_list) {
-			Intent mediaPlayer = new Intent(MainActivity.this,ListActivity.class);
+			Intent mediaPlayer = new Intent(MainActivity.this,RecordingListActivity.class);
 			startActivity(mediaPlayer);
 		}
 		

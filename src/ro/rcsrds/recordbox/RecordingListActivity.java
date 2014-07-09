@@ -1,14 +1,14 @@
 package ro.rcsrds.recordbox;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 
-public class ListActivity extends Activity {
+public class RecordingListActivity extends ListActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list);
+		setContentView(R.layout.recordinglist);
 	}
 
 }
