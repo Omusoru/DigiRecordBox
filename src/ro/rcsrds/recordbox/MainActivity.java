@@ -105,11 +105,13 @@ public class MainActivity extends Activity {
 			if (v.getId()==R.id.btn_recorder_stop) {
 				recorder.stopRecording();
 				btnStop.setVisibility(View.INVISIBLE);
-	            btnCancel.setVisibility(View.INVISIBLE);	            
+	            btnCancel.setVisibility(View.INVISIBLE);	
+	            tglRecord.setChecked(false);
 			} else if (v.getId()==R.id.btn_recorder_cancel) {
 				recorder.cancelRecording();
 				btnStop.setVisibility(View.INVISIBLE);
 	            btnCancel.setVisibility(View.INVISIBLE);
+	            tglRecord.setChecked(false);
 			} 
 			
 		}		

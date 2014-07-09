@@ -2,12 +2,13 @@ package ro.rcsrds.recordbox;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ToggleButton;
 
 public class MediaPlayerActivity extends Activity {
 	
@@ -27,6 +28,10 @@ public class MediaPlayerActivity extends Activity {
 		
 		recorder = new AudioRecorder();
 		
+		//TODO start playing this file:
+		String filename = getIntent().getExtras().getString("fileName");
+		Log.d("Mediaplayer",filename);		
+		
 		//Play incepe automat
 		recorder.startPlaying();
 		tglPlay.setChecked(true);
@@ -38,11 +43,6 @@ public class MediaPlayerActivity extends Activity {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			/*if (isChecked) { 
-	            recorder.startPlaying();
-	        } else {
-	        	recorder.startPlaying();
-	        }*/
 			recorder.startPlaying();			
 		}
 		

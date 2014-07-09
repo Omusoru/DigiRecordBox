@@ -53,7 +53,7 @@ public class AudioRecorder {
     
     //Setam directorul unde se salveaza fisierul
     public AudioRecorder() {
-        filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DigiRecordbox";
     } 
     
 	public void startRecording() {
@@ -448,7 +448,6 @@ public class AudioRecorder {
     } //*/
 	
 	
-    
     public void startPlaying() {
     	if((canPlay)&&(!isPlaying)){
         mPlayer = new MediaPlayer();

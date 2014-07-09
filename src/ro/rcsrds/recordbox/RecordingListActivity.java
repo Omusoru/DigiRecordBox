@@ -4,12 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class RecordingListActivity extends ListActivity {
+public class RecordingListActivity extends ListActivity {	
 	
 	ArrayList<String> listItems=new ArrayList<String>();
 	ArrayAdapter<String> adapter;
@@ -28,17 +30,27 @@ public class RecordingListActivity extends ListActivity {
 	public void loadRecordings() {
 		
 		String path = Environment.getExternalStorageDirectory().toString()+"/DigiRecordbox";
-		//Log.d("FTP", "Path: " + path);
+		//Log.d("Test", "Path: " + path);
 		File f = new File(path);        
 		File file[] = f.listFiles();
-		//Log.d("FTP", "Size: "+ file.length);
+		//Log.d("Test", "Size: "+ file.length);
 		for (int i=0; i < file.length; i++)
 		{
-		    //Log.d("FTP", "FileName:" + file[i].getName());
+		    //Log.d("Test", "FileName:" + file[i].getName());
 			listItems.add(file[i].getName());
 		}
 		
-		
 	}
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		//Start MediaPlayerActivity with selected file as parameter
+		Intent intent = new Intent(RecordingListActivity.this,MediaPlayerActivity.class);
+		intent.putExtra("fileName", listItems.get((int)id));
+		startActivity(intent);
+	}
+	
+	
 
 }
