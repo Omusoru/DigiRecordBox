@@ -1,9 +1,12 @@
 package ro.rcsrds.recordbox;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 public class RecordingListActivity extends ListActivity {
@@ -15,14 +18,27 @@ public class RecordingListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recordinglist);
-		
-		listItems.add("Obiect 1");
-		listItems.add("Obiect 2");
-		
 		adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
 	    setListAdapter(adapter);
-	    
-	    
+	   
+	    loadRecordings();
+    	    
+}
+	
+	public void loadRecordings() {
+		
+		String path = Environment.getExternalStorageDirectory().toString()+"/DigiRecordbox";
+		//Log.d("FTP", "Path: " + path);
+		File f = new File(path);        
+		File file[] = f.listFiles();
+		//Log.d("FTP", "Size: "+ file.length);
+		for (int i=0; i < file.length; i++)
+		{
+		    //Log.d("FTP", "FileName:" + file[i].getName());
+			listItems.add(file[i].getName());
+		}
+		
+		
 	}
 
 }
