@@ -33,14 +33,15 @@ public class DigiFTPClient
         ftpClient = new FTPClient();
     }
     
-    public boolean logIn() {
-    	boolean loggedIn = false;
-    	try {
-    		loggedIn =  ftpClient.login(this.user, this.password);
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    	return loggedIn;
+    public boolean logIn() throws Exception {
+    	//boolean loggedIn = false;
+    	//try {
+    		//loggedIn =  ftpClient.login(this.user, this.password);
+    	//} catch (Exception e) {
+    		//e.printStackTrace();
+    	//}
+    	//return loggedIn;
+    	return ftpClient.login(this.user, this.password);
     	
     }
 

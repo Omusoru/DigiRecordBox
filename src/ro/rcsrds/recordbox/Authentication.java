@@ -42,7 +42,11 @@ public class Authentication {
 			Log.d(Authentication.TAG,e.getMessage());
 		}
 		
-		this.loggedIn = ftp.logIn();
+		try {
+			this.loggedIn = ftp.logIn();
+		} catch (Exception e) {
+			Log.d(Authentication.TAG, e.getMessage());
+		}		
 		
 		if(this.loggedIn) {
 			//this.authToken = api.getAuthToken();
