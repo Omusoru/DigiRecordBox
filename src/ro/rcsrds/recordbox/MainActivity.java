@@ -122,12 +122,11 @@ public class MainActivity extends Activity {
 			if (isChecked) { 
 	            recorder.startRecording();
 	            btnStop.setVisibility(View.VISIBLE);
-	            btnCancel.setVisibility(View.VISIBLE);
+	            btnCancel.setVisibility(View.VISIBLE);	            
 	        // If it's unchecked, it means it's recording
 	        // Checking it again, will pause the recording
-	        } else {
-	        	tglRecord.setChecked(true);
-	        	//TODO Pause recording
+	        } else {	        	
+	        	recorder.startRecording();
 	        }
 
 			
