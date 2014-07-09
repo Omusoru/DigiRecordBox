@@ -1,8 +1,10 @@
 package ro.rcsrds.recordbox;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,9 +50,10 @@ public class AudioRecorder {
     private int recMerged = 0;
 	private RandomAccessFile randomAccessFile;
     
-	//Setam directorul unde se salveaza fisierul
+    
+    //Setam directorul unde se salveaza fisierul
     public AudioRecorder() {
-        filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DigiRecordBox";      
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     } 
     
 	public void startRecording() {
@@ -314,14 +317,137 @@ public class AudioRecorder {
 
         Container out = new DefaultMp4Builder().build(result);
 
-        randomAccessFile = new RandomAccessFile(String.format(fileDestination), "rw");
-		FileChannel fc = randomAccessFile.getChannel();
+        FileChannel fc = new RandomAccessFile(String.format(fileDestination), "rw").getChannel();
         out.writeContainer(fc);
         fc.close();
         
 		return fileDestination;
 
-	}	
+	}/*/
+	
+	/*private String mergeAudio(String file1, String file2) throws IOException
+	{
+		String fileDestination=filePath+"/"+"merge("+recMerged+").mp4";
+		
+		//FileInputStream ifile1 = new FileInputStream(file1);
+		//FileInputStream ifile2 = new FileInputStream(file2);
+        
+        int i=2;
+        
+        String[] f = new String[]
+        		{
+        		file1,
+        		file2
+        		};
+
+
+        Movie[] inMovies = new Movie[i];
+
+        for (int count = 0; count < i; count++) {
+            inMovies[count] = MovieCreator.build(f[count]);
+        }
+
+        //List<Track> videoTracks = new LinkedList<Track>();
+        List<Track> audioTracks = new LinkedList<Track>();
+
+        for (Movie m : inMovies) {
+            for (Track t : m.getTracks()) {
+                if (t.getHandler().equals("soun")) {
+                    audioTracks.add(t);
+                }
+                if (t.getHandler().equals("vide")) {
+                    //videoTracks.add(t);
+                }
+            }
+        }
+
+        Movie result = new Movie();
+
+        if (audioTracks.size() > 0) {
+            result.addTrack(new AppendTrack(audioTracks.toArray(new Track[audioTracks.size()])));
+        }
+        /*if (videoTracks.size() > 0) {
+            result.addTrack(new AppendTrack(videoTracks.toArray(new Track[videoTracks.size()])));
+        }
+
+        Container out = new DefaultMp4Builder().build(result);
+
+        FileChannel fc = new RandomAccessFile(String.format(fileDestination),"rw").getChannel();
+        out.writeContainer(fc);
+        fc.close();
+		
+		return fileDestination;
+	}//*/
+	
+	/*private String mergeAudio(String file1,String file2) throws IOException
+	{
+		FileInputStream fistream1 = new FileInputStream(file1);  // first source file
+        FileInputStream fistream2 = new FileInputStream(file2);//second source file
+        SequenceInputStream sistream = new SequenceInputStream(fistream1, fistream2);
+        FileOutputStream fostream = new FileOutputStream(filePath+"/"+"merge("+recMerged
+
++").mp4");//destinationfile
+
+        int temp;
+
+        while( ( temp = sistream.read() ) != -1)
+        {
+            // System.out.print( (char) temp ); // to print at DOS prompt
+            fostream.write(temp);   // to write to file
+        }
+        fostream.close();
+        sistream.close();
+        fistream1.close();
+        fistream2.close();
+		return filePath+"/"+"merge("+recMerged+").mp4";
+	}//*/
+	
+	/*private String mergeAudio(String file1,String file2){
+		String fileDestination = filePath+"/"+"merge("+recMerged+").mp4";
+		File mergedFile = new File(filePath+"/"+"merge("+recMerged+").mp4");
+		ArrayList<File> files = new ArrayList<File>();
+		files.add(new File(file1));
+		files.add(new File(file2));
+        FileInputStream fisToFinal = null;
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mergedFile);
+            fisToFinal = new FileInputStream(mergedFile);
+            for(int i=0;i<files.size();i++){                
+                FileInputStream fisSong = new FileInputStream(files.get(i));
+                SequenceInputStream sis = new SequenceInputStream(fisToFinal, fisSong);
+                byte[] buf = new byte[1024];
+                try {
+                    for (int readNum; (readNum = fisSong.read(buf)) != -1;)
+                        fos.write(buf, 0, readNum);
+                } finally {
+                    if(fisSong!=null){
+                        fisSong.close();
+                    }
+                    if(sis!=null){
+                        sis.close();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                if(fos!=null){
+                    fos.flush();
+                    fos.close();
+                }
+                if(fisToFinal!=null){
+                    fisToFinal.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileDestination;
+    } //*/
+	
+	
     
     public void startPlaying() {
     	if((canPlay)&&(!isPlaying)){
@@ -366,5 +492,25 @@ public class AudioRecorder {
         isPlayPaused=false;
     	}
     }
-
+    
+    /*public void pausePlaying(){
+    	if((canPause)&&(isPlaying)){
+    		mPlayer.pause();
+    		playingPausedAt = mPlayer.getCurrentPosition();
+    		canPause=false;
+    		isPlaying=false;
+    		isPlayPaused=true;
+    	}
+    }
+    
+    public void resumePlaying(){
+    	if(isPlayPaused){
+    		mPlayer.seekTo(playingPausedAt);
+    		mPlayer.start();
+    		canPause=true;
+    		isPlayPaused=false;
+    		isPlaying=true;
+    	}
+    }//*/
+    
 }
