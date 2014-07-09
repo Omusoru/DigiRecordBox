@@ -89,7 +89,11 @@ public class MainActivity extends Activity {
 		} else if(item.getItemId()==R.id.option_menu_mediaplayer) {
 			Intent mediaPlayer = new Intent(MainActivity.this,MediaPlayerActivity.class);
 			startActivity(mediaPlayer);
+		} else if(item.getItemId()==R.id.option_menu_list) {
+			Intent mediaPlayer = new Intent(MainActivity.this,ListActivity.class);
+			startActivity(mediaPlayer);
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 	

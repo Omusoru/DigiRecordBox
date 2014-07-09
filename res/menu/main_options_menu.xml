@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
     <item android:id="@+id/option_menu_logout" android:title="@string/option_menu_logout" />
-    <item android:id="@+id/option_menu_about" android:title="@string/option_menu_about" />
+    <item android:id="@+id/option_menu_list" android:title="@string/option_menu_list" />
     <item android:id="@+id/option_menu_exit" android:title="@string/option_menu_exit" />
     <item android:id="@+id/option_menu_mediaplayer" android:title="@string/option_menu_mediaplayer" />
     
