@@ -53,7 +53,7 @@ public class AudioRecorder {
     
     //Setam directorul unde se salveaza fisierul
     public AudioRecorder() {
-        filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DigiRecordbox";
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath();      
     } 
     
 	public void startRecording() {
@@ -85,7 +85,7 @@ public class AudioRecorder {
         isRecording=true;
 		}
 		//PauseRecording
-		else if((isRecording)&(canRecPause)){
+		else if((isRecording)&&(canRecPause)){
 			mRecorder.stop();
 			mRecorder.release();
 			recPaused++;
@@ -231,6 +231,7 @@ public class AudioRecorder {
             recMerged=0;
             isRecPaused=false;
         	}
+    	
     }
     
     public void cancelRecording(){
@@ -384,9 +385,7 @@ public class AudioRecorder {
 		FileInputStream fistream1 = new FileInputStream(file1);  // first source file
         FileInputStream fistream2 = new FileInputStream(file2);//second source file
         SequenceInputStream sistream = new SequenceInputStream(fistream1, fistream2);
-        FileOutputStream fostream = new FileOutputStream(filePath+"/"+"merge("+recMerged
-
-+").mp4");//destinationfile
+        FileOutputStream fostream = new FileOutputStream(filePath+"/"+"merge("+recMerged+").mp4");//destinationfile
 
         int temp;
 
@@ -448,6 +447,7 @@ public class AudioRecorder {
     } //*/
 	
 	
+    
     public void startPlaying() {
     	if((canPlay)&&(!isPlaying)){
         mPlayer = new MediaPlayer();
