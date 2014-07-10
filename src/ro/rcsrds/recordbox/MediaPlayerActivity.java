@@ -29,8 +29,8 @@ public class MediaPlayerActivity extends Activity {
 		recorder = new AudioRecorder();
 		
 		//TODO start playing this file:
-		String filename = getIntent().getExtras().getString("fileName");
-		Log.d("Mediaplayer",filename);		
+		//String filename = getIntent().getExtras().getString("fileName");
+		//Log.d("Mediaplayer",filename);		
 		
 		//Play incepe automat
 		recorder.startPlaying();
@@ -43,7 +43,7 @@ public class MediaPlayerActivity extends Activity {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
-			recorder.startPlaying();			
+			recorder.startPlaying();
 		}
 		
 	}

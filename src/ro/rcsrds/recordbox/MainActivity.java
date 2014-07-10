@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 		btnCancel = (Button) findViewById(R.id.btn_recorder_cancel);
 		btnCancel.setOnClickListener(new ButtonClickListener());
 		btnCancel.setVisibility(View.INVISIBLE);
-		///
+
 		recorder = new AudioRecorder();
 	}
 	
