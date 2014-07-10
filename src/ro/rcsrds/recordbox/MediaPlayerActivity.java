@@ -2,7 +2,6 @@ package ro.rcsrds.recordbox;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +17,7 @@ public class MediaPlayerActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.mediaplayer);
 		
 		tglPlay = (ToggleButton) findViewById(R.id.tgl_player_play);
@@ -33,8 +32,8 @@ public class MediaPlayerActivity extends Activity {
 		//Log.d("Mediaplayer",filename);		
 		
 		//Play incepe automat
-		recorder.startPlaying();
-		tglPlay.setChecked(true);
+		//recorder.startPlaying();
+		//tglPlay.setChecked(true);
 		
 	}
 	
