@@ -7,14 +7,17 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.coremedia.iso.boxes.Container;
 import com.googlecode.mp4parser.authoring.Movie;
 import com.googlecode.mp4parser.authoring.Track;
 import com.googlecode.mp4parser.authoring.builder.DefaultMp4Builder;
 import com.googlecode.mp4parser.authoring.container.mp4.MovieCreator;
 import com.googlecode.mp4parser.authoring.tracks.AppendTrack;
+
 import android.annotation.SuppressLint;
 import android.media.MediaRecorder;
 import android.os.Environment;
@@ -30,7 +33,7 @@ public class AudioRecorder {
 	private MediaRecorder Recorder = null;
 	
 	private String filePath;
-	private String curentFile;	
+	private String currentFile;	
 
 	private boolean isRecording = false;
 	private boolean canRecord = true;
@@ -56,12 +59,14 @@ public class AudioRecorder {
 			
 			Recorder = new MediaRecorder();
 			Recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-			Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+			if(android.os.Build.VERSION.SDK_INT<=10)
+				Recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+			else Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			
 			Calendar c = Calendar.getInstance();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			String currentDateandTime = df.format(c.getTime());
-			curentFile=filePath+"/"+currentDateandTime+".mp4";
+			currentFile=filePath+"/"+currentDateandTime+".mp4";
 			
 			tempAudio.add(filePath+"/Temp/temp"+"("+timesPaused+").mp4");
 			
@@ -95,7 +100,9 @@ public class AudioRecorder {
 			tempAudio.add(filePath+"/Temp/temp"+"("+timesPaused+").mp4");
 			
 			Recorder.setOutputFile(tempAudio.get(timesPaused));
-			Recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+			if(android.os.Build.VERSION.SDK_INT<=10)
+				Recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+			else Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			
 	        try {
 	            Recorder.prepare();
@@ -108,7 +115,7 @@ public class AudioRecorder {
 		}
 	}
 
-	public void stopRecording(){
+	public String stopRecording(){
 		if(Recorder!=null){
 			Recorder.stop();
 	        Recorder.release();
@@ -116,7 +123,7 @@ public class AudioRecorder {
 		}
         if(tempAudio.size()==1)
         {
-        	renameFile(tempAudio.get(0),curentFile);
+        	renameFile(tempAudio.get(0),currentFile);
         	tempAudio=new ArrayList<String>();
         	deleteDirectory(new File(filePath+"/Temp"));
         }
@@ -135,6 +142,14 @@ public class AudioRecorder {
         canRecord = true;
         isRecording = false;
         timesPaused = 0;
+        
+        // Remove path from filename;
+        String filename = currentFile;
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DigiRecordbox";
+        filename = filename.replace(path+"/", "");        
+        
+        return filename;
+        
 	}
 	
 	public void cancelRecording(){
@@ -168,7 +183,7 @@ public class AudioRecorder {
     
     public String mergeAudio(ArrayList<String> files) throws IOException
 	{
-		String fileDestination=curentFile;
+		String fileDestination=currentFile;
 		
 
         Movie[] inMovies = new Movie[files.size()];
@@ -216,12 +231,5 @@ public class AudioRecorder {
 		File file = new File(originalName);
 		File file2 = new File(newName);
 		file.renameTo(file2);
-	}
-	
-	public void startPlaying(){
-		
-	}
-	public void stopPlaying(){
-		
 	}
 }
