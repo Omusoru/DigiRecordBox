@@ -7,7 +7,6 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,9 +58,7 @@ public class AudioRecorder {
 			
 			Recorder = new MediaRecorder();
 			Recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-			if(Integer.parseInt(android.os.Build.VERSION.SDK)<=10)
-				Recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
-			else Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+			Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			
 			Calendar c = Calendar.getInstance();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -71,7 +68,9 @@ public class AudioRecorder {
 			tempAudio.add(filePath+"/Temp/temp"+"("+timesPaused+").mp4");
 			
 			Recorder.setOutputFile(tempAudio.get(0));
-			Recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+			if(Integer.parseInt(android.os.Build.VERSION.SDK)<=10)
+				Recorder.setOutputFormat(MediaRecorder.AudioEncoder.AMR_NB);
+			else Recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 			
 	        try {
 	            Recorder.prepare();
@@ -101,8 +100,8 @@ public class AudioRecorder {
 			
 			Recorder.setOutputFile(tempAudio.get(timesPaused));
 			if(Integer.parseInt(android.os.Build.VERSION.SDK)<=10)
-				Recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
-			else Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+				Recorder.setOutputFormat(MediaRecorder.AudioEncoder.AMR_NB);
+			else Recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 			
 	        try {
 	            Recorder.prepare();
