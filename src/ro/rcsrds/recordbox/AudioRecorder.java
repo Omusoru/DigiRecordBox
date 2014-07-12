@@ -59,7 +59,7 @@ public class AudioRecorder {
 			
 			Recorder = new MediaRecorder();
 			Recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-			if(android.os.Build.VERSION.SDK_INT<=10)
+			if(Integer.parseInt(android.os.Build.VERSION.SDK)<=10)
 				Recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
 			else Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			
@@ -100,7 +100,7 @@ public class AudioRecorder {
 			tempAudio.add(filePath+"/Temp/temp"+"("+timesPaused+").mp4");
 			
 			Recorder.setOutputFile(tempAudio.get(timesPaused));
-			if(android.os.Build.VERSION.SDK_INT<=10)
+			if(Integer.parseInt(android.os.Build.VERSION.SDK)<=10)
 				Recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
 			else Recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			
